@@ -138,8 +138,6 @@ ODBC（Open DataBase Connectivity）微软公司数据库系统应用程序接�
 4. 参数一:useUnicode=true
 5. 参数二:characterEncoding=UTF-8
 
-中间件:操作系统和应用程序之间的软件
-
 四  体系结构
 
 ![](http://opzv089nq.bkt.clouddn.com/17-8-7/26212472.jpg)
