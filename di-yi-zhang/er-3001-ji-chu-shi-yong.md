@@ -79,7 +79,7 @@ Connection connection = DriverManager
 ```
 oracle
 Connection connection = DriverManager
-                            .getConnection("jdbc:oracle:thin:@127.0.0.1:1521:orcl",                                             									 "scott", 
+                            .getConnection("jdbc:oracle:thin:@127.0.0.1:1521:orcl", "scott", 
                                         "123456");
 ```
 
@@ -145,35 +145,32 @@ Statement statement = connection.createStatement();
    ResultSet  rs2 = statement.executeQuery(sql2);
    ```
 
-
-2. 注意事项
+1. 注意事项
 
    ```
    JDBC没执行一条SQL语句,都需要Connection对象的createStatement相关的方法来创建Statement对象,  
    利用Statement对象向数据库执行sql语句
    ```
-3.3、Statement对象常用方法
 
-1. 执行DML操作(insert  update delete)
+   3.3、Statement对象常用方法
+
+2. 执行DML操作\(insert  update delete\)
 
    ```
    int  executeUpdate(String sql);  
       返回影响的行数
    ```
 
-
-2. 执行DQL操作
+1. 执行DQL操作
 
    ```
    ResultSet   executeQuery(String sql);  
    返回查询的对象信息
    ```
 
-
-3. 返回多个结果的SQL操作
+1. 返回多个结果的SQL操作
 
    ```
-
    boolean execute(String sql,  
                       int[] columnIndexes)  
                       throws SQLException  
@@ -181,42 +178,45 @@ Statement statement = connection.createStatement();
       一般用于执行DDL操作
    ```
 
-
-4. 执行示例图
+1. 执行示例图
 
    ![](http://opzv089nq.bkt.clouddn.com/17-8-9/79348473.jpg)
 
 ### 4、处理结果
 
 4.1、执行更新返回的是本次操作影响到的记录数。
+
 ```
 int count = statement.executeUpdate\(sql\);
 ```
+
 4.2、执行查询返回的结果是一个ResultSet对象。
 
 1. ResultSet包含符合SQL语句中条件的所有行，并且它通过一套get方法提供了对这些行中数据的访问。  
 2. 使用结果集（ResultSet）对象的访问方法获取数据
-```
- while(rs.next()){  
+   ```
+   while(rs.next()){  
         String name = rs.getString("name") ;  
          String pass = rs.getString(1) ; // 此方法比较高效  
      }
-```
-4.3、ResultSet示意图
+   ```
+
+   4.3、ResultSet示意图
 
 ![](http://opzv089nq.bkt.clouddn.com/17-8-9/87477406.jpg)
 
-###  5、关闭JDBC对象
+### 5、关闭JDBC对象
 
-操作完成以后要把所有使用的JDBC对象全都关闭，以释放JDBC资源，关闭顺序和声明顺序相反 
+操作完成以后要把所有使用的JDBC对象全都关闭，以释放JDBC资源，关闭顺序和声明顺序相反
 
-1. 关闭记录集   
+1. 关闭记录集
 
-2. 关闭声明   
+2. 关闭声明
 
 3. 关闭连接对象
-```
-if(rs != null){   // 关闭记录集  
+
+   ```
+   if(rs != null){   // 关闭记录集  
    try{   
        rs.close() ;   
    }catch(SQLException e){   
@@ -236,8 +236,8 @@ if(rs != null){   // 关闭记录集
     }catch(SQLException e){   
        e.printStackTrace() ;   
     }   
-  }  
-```
+   }
+   ```
 
 ### 6、jdbc开发步骤图
 
@@ -245,11 +245,14 @@ if(rs != null){   // 关闭记录集
 
 ### 7、常用的对应的数据类型
 
-| mysql       | oracle         | java               |
-| :---------- | -------------- | ------------------ |
-| TIMESTAMP   | Timestamp      | java.sql.Timestamp |
-| VARCHAR     | VARCHAR2 CLOB  | java.lang.String   |
-| TEXT        | VARCHAR2 CLOB  | java.lang.String   |
-| INT         | NUMBER\(10,0\) | java.lang.Integer  |
-| date\(年月日\) |                | java.sql.Date      |
-|             | date           | java.sql.Date      |
+| mysql | oracle | java |
+| :--- | --- | --- |
+| TIMESTAMP | Timestamp | java.sql.Timestamp |
+| VARCHAR | VARCHAR2 CLOB | java.lang.String |
+| TEXT | VARCHAR2 CLOB | java.lang.String |
+| INT | NUMBER\(10,0\) | java.lang.Integer |
+| date\(年月日\) |  | java.sql.Date |
+|  | date | java.sql.Date |
+
+
+
