@@ -18,7 +18,8 @@
 
    ```
    oci是Oracle call interface的缩写，此驱动类似于传统的ODBC 驱动。
-   因为它需要Oracle Call Interface and Net8，所以它需要在运行使用此驱动的Java程序的机器上安装客户端软件，其实主要是用到orcale客户端里以dll方式提供的oci和服务器配置。
+   因为它需要Oracle Call Interface and Net8，所以它需要在运行使用此驱动的Java程序的机器上安装客户端软件，
+   其实主要是用到orcale客户端里以dll方式提供的oci和服务器配置。
    ```
 
    3、JDBC KPRB
