@@ -10,7 +10,8 @@
 
    ```
    thin是for thin client的意思，这种驱动一般用在运行在WEB浏览器中的JAVA程序。
-   它不是通过OCI or Net8，而是通过Java sockets进行通信，是纯java实现的驱动，因此不需要在使用JDBC Thin的客户端机器上安装orcale客户端软件，所以有很好的移植性，通常用在web开发中。
+   它不是通过OCI or Net8，而是通过Java sockets进行通信，是纯java实现的驱动，
+   因此不需要在使用JDBC Thin的客户端机器上安装orcale客户端软件，所以有很好的移植性，通常用在web开发中。
    ```
 
    2、JDBC OCI
@@ -145,7 +146,7 @@ Statement statement = connection.createStatement();
    ResultSet  rs2 = statement.executeQuery(sql2);
    ```
 
-1. 注意事项
+2. 注意事项
 
    ```
    JDBC没执行一条SQL语句,都需要Connection对象的createStatement相关的方法来创建Statement对象,  
@@ -154,21 +155,21 @@ Statement statement = connection.createStatement();
 
    3.3、Statement对象常用方法
 
-2. 执行DML操作\(insert  update delete\)
+3. 执行DML操作\(insert  update delete\)
 
    ```
    int  executeUpdate(String sql);  
       返回影响的行数
    ```
 
-1. 执行DQL操作
+4. 执行DQL操作
 
    ```
    ResultSet   executeQuery(String sql);  
    返回查询的对象信息
    ```
 
-1. 返回多个结果的SQL操作
+5. 返回多个结果的SQL操作
 
    ```
    boolean execute(String sql,  
@@ -178,7 +179,7 @@ Statement statement = connection.createStatement();
       一般用于执行DDL操作
    ```
 
-1. 执行示例图
+6. 执行示例图
 
    ![](http://opzv089nq.bkt.clouddn.com/17-8-9/79348473.jpg)
 
@@ -194,6 +195,7 @@ int count = statement.executeUpdate\(sql\);
 
 1. ResultSet包含符合SQL语句中条件的所有行，并且它通过一套get方法提供了对这些行中数据的访问。  
 2. 使用结果集（ResultSet）对象的访问方法获取数据
+
    ```
    while(rs.next()){  
         String name = rs.getString("name") ;  
