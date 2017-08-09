@@ -6,5 +6,5 @@
   * [二、基础使用](di-yi-zhang/er-3001-ji-chu-shi-yong.md)
   * [三、JDBC与ODBC](di-yi-zhang/san-3001-jdbc-yu-odbc.md)
 * [第二章 进阶](di-er-zhang.md)
-  * 四、JDBC核心类
+  * [四、JDBC核心类](di-er-zhang/si-3001-jdbc-he-xin-lei.md)
 
