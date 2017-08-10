@@ -4,11 +4,11 @@
 
 ### 1、说明
 
-```
-PerparedStatement是Statment的子类,在任何时候都不要使用Statement
+   PerparedStatement是Statment的子类,在任何时候都不要使用Statement
+
 ```
 
-
+```
 
 ### 2 、为什么要使用PerparedStatemnt?
 
