@@ -301,13 +301,13 @@
            <property name="driverClass">oracle.jdbc.driver.OracleDriver</property>    
            <property name="jdbcUrl">jdbc:oracle:thin:@localhost:1521:orcl</property>    
            <property name="user">scott</property>    
-           <property name="password">liang</property>    
+           <property name="password">admin</property>    
            <property name="initialPoolSize">10</property>    
            <property name="maxIdleTime">30</property>    
            <property name="maxPoolSize">100</property>    
            <property name="minPoolSize">10</property>    
            <property name="maxStatements">200</property>    
-       </named-config>    
+       </named-config>
    ```
 
 3. 配置详解
