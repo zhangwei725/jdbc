@@ -8,5 +8,5 @@
 * [第二章 进阶](di-er-zhang.md)
   * [四、JDBC核心类](di-er-zhang/si-3001-jdbc-he-xin-lei.md)
   * [五、核心类详解](di-er-zhang/wu-3001-he-xin-lei-xiang-jie.md)
-  * 六、连接池技术
+  * [六、连接池技术](di-er-zhang/liu-3001-lian-jie-chi-ji-zhu.md)
 
