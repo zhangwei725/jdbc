@@ -194,7 +194,7 @@
    }
    ```
 
-1. 方式二\(核心代码\)
+2. 方式二\(核心代码\)
 
    ```
    public class ConnPoolDataSource  implements DataSource{
@@ -270,7 +270,7 @@
    使用第三方技术必须导包
    ```
 
-1. 配置c3p0-config.xml
+2. 配置c3p0-config.xml
 
    ```
    <c3p0-config>
@@ -308,7 +308,7 @@
        </named-config>
    ```
 
-1. 配置详解
+3. 配置详解
 
    ```
    <named-config name="test">
@@ -348,7 +348,7 @@
 
    2、xml文件命名为c3p0-config固定格式
 
-1. java代码
+4. java代码
 
    ```
    public class ConnPoolManager {
@@ -419,7 +419,7 @@
     }
    ```
 
-1. [官方文档](http://www.mchange.com/projects/c3p0/index.html)
+5. [官方文档](http://www.mchange.com/projects/c3p0/index.html)
 
 
 
