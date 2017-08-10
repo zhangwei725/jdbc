@@ -10,6 +10,6 @@
   * [五、核心类详解](di-er-zhang/wu-3001-he-xin-lei-xiang-jie.md)
   * [六、连接池技术](di-er-zhang/liu-3001-lian-jie-chi-ji-zhu.md)
 * [第三章 高级](di-san-zhang-gao-ji.md)
-  * 七、事务机制
+  * [七、事务机制](di-san-zhang-gao-ji/qi-3001-shi-wu-ji-zhi.md)
   * 八、DAO
 
