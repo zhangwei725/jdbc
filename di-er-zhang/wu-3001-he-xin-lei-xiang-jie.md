@@ -28,7 +28,6 @@ PerparedStatement是Statment的子类,在任何时候都不要使用Statement
 
 ```
 int rowcount = stmt.executeUpdate ("insert into tb_user (username) values ('?')",       
-   
 // 插入行并返回键值     
 Statement.RETURN_GENERATED_KEYS);     
 // 得到生成的键值     
