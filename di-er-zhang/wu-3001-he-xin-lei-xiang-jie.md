@@ -27,7 +27,7 @@ PerparedStatement是Statment的子类,在任何时候都不要使用Statement
 ​    JDBC3.0规范中的一个可选特性提供了一种能力, 可以取得刚刚插入到表中的记录的自动生成的键值
 
 ```
-int rowcount = stmt.executeUpdate ("insert into tb_user (username) values ('?')",       
+int rowcount = stmt.executeUpdate("insert into tb_user (username) values ('?')",       
 // 插入行并返回键值     
 Statement.RETURN_GENERATED_KEYS);     
 // 得到生成的键值     
