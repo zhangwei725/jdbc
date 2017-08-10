@@ -6,10 +6,6 @@
 
    PerparedStatement是Statment的子类,在任何时候都不要使用Statement
 
-```
-
-```
-
 ### 2 、为什么要使用PerparedStatemnt?
 
 #### 2.1、极大地提高了安全性
