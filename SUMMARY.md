@@ -11,5 +11,5 @@
   * [六、连接池技术](di-er-zhang/liu-3001-lian-jie-chi-ji-zhu.md)
 * [第三章 高级](di-san-zhang-gao-ji.md)
   * [七、事务机制](di-san-zhang-gao-ji/qi-3001-shi-wu-ji-zhi.md)
-  * 八、DAO
+  * [八、DAO](di-san-zhang-gao-ji/ba-3001-dao.md)
 
