@@ -178,94 +178,91 @@
            // 3.3 如果当前已经达到最大连接数，抛出异常
            throw new RuntimeException("当前连接已经达到最大连接数目 ！");
        }
-
-
-       //4. 释放连接
-       public void realease(Connection con) {
-           // 4.1 判断：池的数目如果小于初始化连接，就放入池中
-           if (pool.size() < INIT_COUNT) {
-               pool.addLast(con);
-           } else {
-               try {
-                   //4.2 关闭
-                   current_count--;
-                   con.close();
-               } catch (SQLException e) {
-                   throw new RuntimeException(e);
-               }
-           }
-       }
+         //4. 释放连接
+      public void realease(Connection con) {
+          // 4.1 判断：池的数目如果小于初始化连接，就放入池中
+          if (pool.size() < INIT_COUNT) {
+              pool.addLast(con);
+          } else {
+              try {
+                  //4.2 关闭
+                  current_count--;
+                  con.close();
+              } catch (SQLException e) {
+                  throw new RuntimeException(e);
+              }
+          }
+      }
    }
    ```
 
-   ​
 
-2. 方式二(核心代码)
+1. 方式二(核心代码)  
 
    ```
-   ublic class ConnPoolDataSource  implements DataSource{
-           // 存储Connection对象的集合.
-           private List<Connection> conns = new LinkedList<Connection>();
+   public class ConnPoolDataSource  implements DataSource{
+       // 存储Connection对象的集合.
+          private List<Connection> conns = new LinkedList<Connection>();
 
-           public ConnPoolDataSource(String properties) throws IOException,
-                   ClassNotFoundException, SQLException {
-               // 连接池中Connection对象的数量
-               int initialSize = 10;
-               // 根据配置文件的名称获得InputStream对象
-               InputStream in = ConnPoolDataSource.class.getClassLoader()
-                       .getResourceAsStream(properties);
-               // 使用Properties读取配置文件
-               Properties prop = new Properties();
-               prop.load(in);
-               String url = prop.getProperty("jdbc_url");
-               String user = prop.getProperty("username");
-               String password = prop.getProperty("password");
-               String driver = prop.getProperty("driver_class");
+          public ConnPoolDataSource(String properties) throws IOException,
+                  ClassNotFoundException, SQLException {
+              // 连接池中Connection对象的数量
+              int initialSize = 10;
+              // 根据配置文件的名称获得InputStream对象
+              InputStream in = ConnPoolDataSource.class.getClassLoader()
+                      .getResourceAsStream(properties);
+              // 使用Properties读取配置文件
+              Properties prop = new Properties();
+              prop.load(in);
+              String url = prop.getProperty("jdbc_url");
+              String user = prop.getProperty("username");
+              String password = prop.getProperty("password");
+              String driver = prop.getProperty("driver_class");
 
-               // 加载数据库驱动
-               Class.forName(driver);
-               // 根据配置文件中的信息获取数据库连接
-               for (int i = 0; i < initialSize; i++) {
-                   Connection conn = DriverManager.getConnection(url, user, password);
-                   conns.add(conn);
-               }
-           }
+              // 加载数据库驱动
+              Class.forName(driver);
+              // 根据配置文件中的信息获取数据库连接
+              for (int i = 0; i < initialSize; i++) {
+                  Connection conn = DriverManager.getConnection(url, user, password);
+                  conns.add(conn);
+              }
+          }
 
-           @Override
-           public Connection getConnection() throws SQLException {
-               // 获取从集合中移除的Connection对象, 并将其包装为MyConnection对象后返回.
-               Connection conn = conns.remove(0);
-               // 测试代码
-               System.out.println("获取连接之后, 连接池中的Connection对象的数量为: " + conns.size());
-               return new CustomConnection(conn, conns);
-           }
+          @Override
+          public Connection getConnection() throws SQLException {
+              // 获取从集合中移除的Connection对象, 并将其包装为MyConnection对象后返回.
+              Connection conn = conns.remove(0);
+              // 测试代码
+              System.out.println("获取连接之后, 连接池中的Connection对象的数量为: " + conns.size());
+              return new CustomConnection(conn, conns);
+          }
 
-           private class CustomConnection implements Connection {
-               private Connection conn;
-               private List<Connection> conns;
+          private class CustomConnection implements Connection {
+              private Connection conn;
+              private List<Connection> conns;
 
-               public CustomConnection(Connection conn, List<Connection> conns) {
-                   this.conn = conn;
-                   this.conns = conns;
-               }
+              public CustomConnection(Connection conn, List<Connection> conns) {
+                  this.conn = conn;
+                  this.conns = conns;
+              }
 
-               // 重写close()方法, 实现调用该方法时将连接归还给连接池
-               @Override
-               public void close() throws SQLException {
-                   conns.add(conn);
-               }
-               @Override
-               public void clearWarnings() throws SQLException {
-                   conn.clearWarnings();
-               }
+              // 重写close()方法, 实现调用该方法时将连接归还给连接池
+              @Override
+              public void close() throws SQLException {
+                  conns.add(conn);
+              }
+              @Override
+              public void clearWarnings() throws SQLException {
+                  conn.clearWarnings();
+              }
 
-               @Override
-               public void commit() throws SQLException {
-                   conn.commit();
-               }
-           }
-       }
-   }
+              @Override
+              public void commit() throws SQLException {
+                  conn.commit();
+              }
+          }
+      }
+   }   
    ```
 
 ### 5.2、开源框架c3p0
@@ -273,16 +270,17 @@
 1. 导包(c3p0-x.x.x.x.jar , mchange-commons-java-x.x.xx,数据库驱动包)
 
    ```
-   必须两个包同时导入
+   使用第三方技术必须导包
    ```
 
-2. 配置c3p0-config.xml
+
+1. 配置c3p0-config.xml
 
    ```
    <c3p0-config>
        <!-- 默认配置 -->
        <default-config>
-           <property name="jdbcUrl">jdbc:mysql://localhost:3306/test</property>
+           <property name="jdbcUrl">jdbc:mysql://localhost:3306/jshop</property>
            <property name="user">root</property>
            <property name="password">root</property>
            <property name="driverClass">com.mysql.jdbc.Driver</property>
@@ -293,142 +291,140 @@
 
        <!-- mysql的连接配置 -->
        <named-config name="mysql">
-           <property name="jdbcUrl">jdbc:mysql://localhost:3306/vmaxtam</property>
+           <property name="jdbcUrl">jdbc:mysql://localhost:3306/jshop</property>
            <property name="user">root</property>
            <property name="password">root</property>
            <property name="driverClass">com.mysql.jdbc.Driver</property>
            <property name="initialPoolSize">5</property>
            <property name="maxPoolSize">8</property>
-           <property name="checkoutTimeout">3000</property>    
+           <property name="checkoutTimeout">3000</property>
        </named-config>
-       
-       <!-- oracal配置-->
-   	<named-config name="oracle">
+
+       <!-- oracle配置-->
+       <named-config name="oracle">
            <property name="jdbcUrl">jdbc:oracle:thin:@127.0.0.1:orcl</property>
-           <property name="user">scott</property>
-           <property name="password">admin</property>
+           <property name="user">root</property>
+           <property name="password">root</property>
            <property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
            <property name="initialPoolSize">5</property>
            <property name="maxPoolSize">8</property>
-           <property name="checkoutTimeout">3000</property>    
-       </named-config>
-   </c3p0-config>
-   ```
-
-3. 配置详解
-
-   ```
-    <named-config name="test">
-           <!--连接池中保留的最大连接数。默认值: 15 -->
-           <property name="maxPoolSize">20</property>
-           <!-- 连接池中保留的最小连接数，默认为：3-->
-           <property name="minPoolSize">2</property>
-           <!-- 初始化连接池中的连接数，取值应在minPoolSize与maxPoolSize之间，默认为3-->
-           <property name="initialPoolSize">2</property>
-           <!--最大空闲时间，60秒内未使用则连接被丢弃。若为0则永不丢弃。默认值: 0 -->
-           <property name="maxIdleTime">60</property>
-           <!-- 当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒。默认: 0 -->
            <property name="checkoutTimeout">3000</property>
-           <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。默认值: 3 -->
-           <property name="acquireIncrement">2</property>
-           <!--定义在从数据库获取新连接失败后重复尝试的次数。默认值: 30 ；小于等于0表示无限次-->
-           <property name="acquireRetryAttempts">0</property>
-           <!--重新尝试的时间间隔，默认为：1000毫秒-->
-           <property name="acquireRetryDelay">1000</property>
-           <!--关闭连接时，是否提交未提交的事务，默认为false，即关闭连接，回滚未提交的事务 -->
-           <property name="autoCommitOnClose">false</property>
-           <!--c3p0将建一张名为Test的空表，并使用其自带的查询语句进行测试。如果定义了这个参数那么属性preferredTestQuery将被忽略。你不能在这张Test表上进行任何操作，它将只供c3p0测试使用。默认值: null -->
-           <property name="automaticTestTable">Test</property>
-           <!--如果为false，则获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常，但是数据源仍有效保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试获取连接失败后该数据源将申明已断开并永久关闭。默认: false-->
-           <property name="breakAfterAcquireFailure">false</property>
-           <!--每60秒检查所有连接池中的空闲连接。默认值: 0，不检查 -->
-           <property name="idleConnectionTestPeriod">60</property>
-           <!--c3p0全局的PreparedStatements缓存的大小。如果maxStatements与maxStatementsPerConnection均为0，则缓存不生效，只要有一个不为0，则语句的缓存就能生效。如果默认值: 0-->
-           <property name="maxStatements">100</property>
-           <!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。默认值: 0 -->
-           <property name="maxStatementsPerConnection">0</property>
+       </named-config>
    ```
 
-   注意事项
+
+1. 配置详解
 
    ```
-   1、c3p0-config.xml 如果java项目直接放在src根目录下
-   2、xml文件命名为c3p0-config固定格式
+   <named-config name="test">
+          <!--连接池中保留的最大连接数。默认值: 15 -->
+          <property name="maxPoolSize">20</property>
+          <!-- 连接池中保留的最小连接数，默认为：3-->
+          <property name="minPoolSize">2</property>
+          <!-- 初始化连接池中的连接数，取值应在minPoolSize与maxPoolSize之间，默认为3-->
+          <property name="initialPoolSize">2</property>
+          <!--最大空闲时间，60秒内未使用则连接被丢弃。若为0则永不丢弃。默认值: 0 -->
+          <property name="maxIdleTime">60</property>
+          <!-- 当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒。默认: 0 -->
+          <property name="checkoutTimeout">3000</property>
+          <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。默认值: 3 -->
+          <property name="acquireIncrement">2</property>
+          <!--定义在从数据库获取新连接失败后重复尝试的次数。默认值: 30 ；小于等于0表示无限次-->
+          <property name="acquireRetryAttempts">0</property>
+          <!--重新尝试的时间间隔，默认为：1000毫秒-->
+          <property name="acquireRetryDelay">1000</property>
+          <!--关闭连接时，是否提交未提交的事务，默认为false，即关闭连接，回滚未提交的事务 -->
+          <property name="autoCommitOnClose">false</property>
+          <!--c3p0将建一张名为Test的空表，并使用其自带的查询语句进行测试。如果定义了这个参数那么属性preferredTestQuery将被忽略。你不能在这张Test表上进行任何操作，它将只供c3p0测试使用。默认值: null -->
+          <property name="automaticTestTable">Test</property>
+          <!--如果为false，则获取连接失败将会引起所有等待连接池来获取连接的线程抛出异常，但是数据源仍有效保留，并在下次调用getConnection()的时候继续尝试获取连接。如果设为true，那么在尝试获取连接失败后该数据源将申明已断开并永久关闭。默认: false-->
+          <property name="breakAfterAcquireFailure">false</property>
+          <!--每60秒检查所有连接池中的空闲连接。默认值: 0，不检查 -->
+          <property name="idleConnectionTestPeriod">60</property>
+          <!--c3p0全局的PreparedStatements缓存的大小。如果maxStatements与maxStatementsPerConnection均为0，则缓存不生效，只要有一个不为0，则语句的缓存就能生效。如果默认值: 0-->
+          <property name="maxStatements">100</property>
+          <!--maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。默认值: 0 -->
+          <property name="maxStatementsPerConnection">0</property>
    ```
 
-4. java代码
+   注意事项 
+
+    1、c3p0-config.xml 如果java项目直接放在src根目录下
+
+    2、xml文件命名为c3p0-config固定格式
+
+
+1. java代码 
 
    ```
    public class ConnPoolManager {
-       private static volatile ConnPoolManager instance = null;
-       static ComboPooledDataSource ds = null;
+      private static volatile ConnPoolManager instance = null;
+      static ComboPooledDataSource ds = null;
 
-       static {
-           ds = new ComboPooledDataSource("mysql");
-       }
+      static {
+          ds = new ComboPooledDataSource("mysql");
+      }
 
-       private ConnPoolManager() {
-       }
+      private ConnPoolManager() {
+      }
 
-       public static ConnPoolManager getInstance() {
-           if (instance == null) {
-               synchronized (ConnPoolManager.class) {
-                   if (instance == null) {
-                       instance = new ConnPoolManager();
-                   }
-               }
-           }
-           return instance;
-       }
-       public Connection getConnection() {
-           Connection connection = null;
-           try {
-               connection = ds.getConnection();
-           } catch (SQLException e) {
-               e.printStackTrace();
-           }
-           return connection;
-       }
+      public static ConnPoolManager getInstance() {
+          if (instance == null) {
+              synchronized (ConnPoolManager.class) {
+                  if (instance == null) {
+                      instance = new ConnPoolManager();
+                  }
+              }
+          }
+          return instance;
+      }
+      public Connection getConnection() {
+          Connection connection = null;
+          try {
+              connection = ds.getConnection();
+          } catch (SQLException e) {
+              e.printStackTrace();
+          }
+          return connection;
+      }
 
-       public void close(Statement statement, ResultSet rs) {
-           if (rs != null) {
-               try {
-                   rs.close();
-               } catch (SQLException e) {
-                   e.printStackTrace();
-               }
-           }
+      public void close(Statement statement, ResultSet rs) {
+          if (rs != null) {
+              try {
+                  rs.close();
+              } catch (SQLException e) {
+                  e.printStackTrace();
+              }
+          }
 
-           if (statement != null) {
-               try {
-                   statement.close();
-               } catch (SQLException e) {
-                   e.printStackTrace();
-               }
-           }
-       }
+          if (statement != null) {
+              try {
+                  statement.close();
+              } catch (SQLException e) {
+                  e.printStackTrace();
+              }
+          }
+      }
+      public static void main(String[] args) {
+          Connection connection = ConnPoolManager.getInstance().getConnection();
+          String sql = "SELECT * FROM  t_product";
+          PreparedStatement ps = null;
+          ResultSet rs = null;
+          try {
+              ps = connection.prepareStatement(sql);
+              rs = ps.executeQuery();
+              while (rs.next()) {
+                  System.out.println(rs.getInt(1));
+              }
+          } catch (SQLException e) {
+              e.printStackTrace();
+          } finally {
+              ConnPoolManager.getInstance().close(ps, rs);
+          }
+      }
+    }
    ```
 
-   ```
-       public static void main(String[] args) {
-           Connection connection = ConnPoolManager.getInstance().getConnection();
-           String sql = "SELECT * FROM  t_product";
-           PreparedStatement ps = null;
-           ResultSet rs = null;
-           try {
-               ps = connection.prepareStatement(sql);
-               rs = ps.executeQuery();
-               while (rs.next()) {
-                   System.out.println(rs.getInt(1));
-               }
-           } catch (SQLException e) {
-               e.printStackTrace();
-           } finally {
-               ConnPoolManager.getInstance().close(ps, rs);
-           }
-       }
-   }
-   ```
 
-5. [官方文档](http://www.mchange.com/projects/c3p0/index.html)
+1. [官方文档](http://www.mchange.com/projects/c3p0/index.html)
 
