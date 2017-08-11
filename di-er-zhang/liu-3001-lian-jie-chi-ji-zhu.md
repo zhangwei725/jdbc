@@ -308,6 +308,7 @@
            <property name="minPoolSize">10</property>    
            <property name="maxStatements">200</property>    
        </named-config>
+    
    ```
 
 3. 配置详解
