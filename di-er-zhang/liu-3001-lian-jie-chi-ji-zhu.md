@@ -276,7 +276,7 @@
    <c3p0-config>
        <!-- 默认配置 -->
        <default-config>
-           <property name="jdbcUrl">jdbc:mysql://localhost:3306/jshop</property>
+           <property name="jdbcUrl">jdbc:mysql://localhost:3306/scott</property>
            <property name="user">root</property>
            <property name="password">root</property>
            <property name="driverClass">com.mysql.jdbc.Driver</property>
