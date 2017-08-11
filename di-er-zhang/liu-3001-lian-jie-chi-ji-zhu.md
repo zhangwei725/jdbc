@@ -309,7 +309,6 @@
            <property name="maxStatements">200</property>    
        </named-config>
    </c3p0-config>
-
    ```
 
 3. 配置详解
