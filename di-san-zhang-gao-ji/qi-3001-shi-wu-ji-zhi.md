@@ -1,8 +1,8 @@
-# 数据库事务(Database Transaction)
+# 数据库事务\(Database Transaction\)
 
 ## 一、简介
 
-​	事务(Transaction):是并发控制的单元，是用户定义的一个操作序列。这些操作要么都做，要么都不做，是一个不可分割的工作单位。通过事务，sql  能将逻辑相关的一组操作绑定在一起，以便服务器保持数据的完整性。事务通常是以begin transaction开始，以commit或rollback结束。Commint表示提交，即提交事务的所有操作。具体地说就是将事务中所有对数据的更新写回到磁盘上的物理数据库中去，事务正常结束。Rollback表示回滚，即在事务运行的过程中发生了某种故障，事务不能继续进行，系统将事务中对数据库的所有已完成的操作全部撤消，滚回到事务开始的状态
+​    事务\(Transaction\):是并发控制的单元，是用户定义的一个操作序列。这些操作要么都做，要么都不做，是一个不可分割的工作单位。通过事务，sql  能将逻辑相关的一组操作绑定在一起，以便服务器保持数据的完整性。事务通常是以begin transaction开始，以commit或rollback结束。Commint表示提交，即提交事务的所有操作。具体地说就是将事务中所有对数据的更新写回到磁盘上的物理数据库中去，事务正常结束。Rollback表示回滚，即在事务运行的过程中发生了某种故障，事务不能继续进行，系统将事务中对数据库的所有已完成的操作全部撤消，滚回到事务开始的状态
 
 设想网上购物的一次交易，其付款过程至少包括以下几步数据库操作：
 
@@ -19,15 +19,15 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
 
 事务只针对DML操作
 
-## 二、事务的特性(ACID)
+## 二、事务的特性\(ACID\)
 
 1. 举个栗子:小明账户向小花账号汇钱的例子来说明如何通过数据库事务保证数据的准确性和完整性
 
-   1、从小明账号中把余额读出来（1000） 
-   2、对小明账号做减法操作（1000-100）
-   3、把结果写回小明账号中（900）
-   4、从小花账号中把余额读出来（500)
-   5、对小花账号做加法操作（500+100） 
+   1、从小明账号中把余额读出来（1000）   
+   2、对小明账号做减法操作（1000-100）  
+   3、把结果写回小明账号中（900）  
+   4、从小花账号中把余额读出来（500\)  
+   5、对小花账号做加法操作（500+100）   
    6、把结果写回小花账号中（600）
 
 ### 2.1、原子性（atomicity）
@@ -58,13 +58,13 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
 
 1. 概念
 
-   也称为独立性，是指并行事务的修改必须与其他并行事务的修改相互独立。一个事务处理数据，要么是其他事务执行之前的状态，要么是其他事务执行之后的状态，但不能处理其他正在处理的数据。
+   也称为独立性，是指并行事务的修改必须与其他并行事务的修改相互独立。一个事务处理数据，要么是其他事务执行之前的状态，要么是其他事务执行之后的状态，但不能处理其他正在处理的数据。  
    企业级的数据库每一秒钟都可能应付成千上万的并发访问，因而带来了并发控制的问题。
 
 2. 说明
 
    ```
-   在小明向小花转账的整个过程中，只要事务还没有提交（commit），查询小明账户和小花账户的时候，两个账户里面的钱的数量都不会有变化。 
+   在小明向小花转账的整个过程中，只要事务还没有提交（commit），查询小明账户和小花账户的时候，两个账户里面的钱的数量都不会有变化。
    ```
 
 ### 2.4、持久性（durability）
@@ -76,17 +76,17 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
 2. 说明
 
    ```
-   一旦转账成功（事务提交），两个账户的里面的钱就会真的发生变化（会把数据写入数据库做持久化保存） 
+   一旦转账成功（事务提交），两个账户的里面的钱就会真的发生变化（会把数据写入数据库做持久化保存）
    ```
 
 ## 二、JDBC标准事务编程
 
 ### 2.1、事务控制的基本语句及功能
 
-1. 提交事务            (commit)
-2. 回滚事务           (rollback)
-3. 设置保存点        (savepoint)
-4. 回退到保存点         (rolback to savepoint)
+1. 提交事务            \(commit\)
+2. 回滚事务           \(rollback\)
+3. 设置保存点        \(savepoint\)
+4. 回退到保存点         \(rolback to savepoint\)
 
 ### 2.2、示例代码
 
@@ -126,7 +126,7 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
            }
            return instance;
        }
-   	
+
        public Connection getConnection() {
            Connection connection = null;
            try {
@@ -148,7 +148,7 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
                }
            }
        }
-     
+
        public void close(Statement statement) {
            if (statement != null) {
                try {
@@ -158,7 +158,7 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
                }
            }
        }
-     
+
    }
    ```
 
@@ -167,9 +167,9 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
    ```java
    public static void testTransaction() {        
            Connection connection = null;
-     	    PreparedStatement ps2= null;
+             PreparedStatement ps2= null;
            PreparedStatement ps1= null;
-     	    PreparedStatement ps3= null;
+             PreparedStatement ps3= null;
            PreparedStatement ps4= null;
            try {
                connection =ConnPoolManager.getConn();
@@ -188,12 +188,12 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
                ps2.setDouble(1, money);
                ps2.setString(2, "xm");
                ps2.executeUpdate();
-    			
+
                String sql3 = "SELECT MONEY  FROM  TB_USER  WHERE  USER_ID=?";
                ps3 = connection.prepareStatement(sql3);
                ps3.setInt(1, 2);
                ResultSet rs1 = ps3.executeQuery();
-    
+
                double wifiMoney = 0;
                while (rs1.next()) {
                    wifiMoney = rs1.getDouble(1);
@@ -204,7 +204,7 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
                ps4.setString(2, "xh");
                int i = ps4.executeUpdate();
                connection.commit();
-    
+
            } catch (SQLException e) {
                try {
                    connection.rollback();
@@ -217,10 +217,10 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
               DbManager.getInstance().close(ps3);
               DbManager.getInstance().close(ps4);
            }
-   }       
+   }
    ```
 
-4. 示例代码2(设置回滚点)
+4. 示例代码2\(设置回滚点\)
 
    ```java
       public static void startTransactionSavePoint() {
@@ -255,13 +255,13 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
                connection.rollback(point);
                //提交事务
                connection.commit();
-               
+
                if (count > 0) {
                    System.out.println("添加用户成功!!!");
                }
 
            } catch (SQLException e) {
-          	    connection.rollback();
+                  connection.rollback();
                e.printStackTrace();
            } finally {
                //关闭ps
@@ -270,7 +270,7 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
                DbManager.getInstance().close(deletePs);
            }
 
-       }  
+       }
    ```
 
    ​
@@ -279,33 +279,33 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
 
 ### 3.1、并发控制
 
-​	数据库管理系统（DBMS）中的并发控制的任务是确保在多个事务同时存取数据库中同一数据时不破坏事务的隔离性和统一性以及数据库的统一性
+​    数据库管理系统（DBMS）中的并发控制的任务是确保在多个事务同时存取数据库中同一数据时不破坏事务的隔离性和统一性以及数据库的统一性
 
 ### 3.2、不考虑事务的隔离性，会出现什么问题？
 
 1. 脏读：一个事务读取到另一个事务的未提交数据
-2. 不可重复读：两次读取的数据不一致(强调update)
-3. 虚读(幻读)：两次读取的数据不一致(强调insert)
+2. 不可重复读：两次读取的数据不一致\(强调update\)
+3. 虚读\(幻读\)：两次读取的数据不一致\(强调insert\)
 4. 丢失更新：两个事务对同一条记录进行操作，后提交的事务，将先提交的事务的修改覆盖了
 
 ### 3.3、四种隔离级别
 
-1. Read uncommitted：最低级别，以上情况均无法保证。(读未提交)
+1. Read uncommitted：最低级别，以上情况均无法保证。\(读未提交\)
 
 2. Read committed：可避免脏读情况发生（读已提交）
 
 3. Repeatable read：可避免脏读、不可重复读情况的发生。（可重复读）不可以避免虚读
 
-4. Serializable：可避免脏读、不可重复读、虚读情况的发生。(序列化，不仅有read、write锁还有range lock范围锁（没有where锁全表，有where锁where范围）；对一张表的所有增删改操作必须顺序执行，性能最差)
+4. Serializable：可避免脏读、不可重复读、虚读情况的发生。\(序列化，不仅有read、write锁还有range lock范围锁（没有where锁全表，有where锁where范围）；对一张表的所有增删改操作必须顺序执行，性能最差\)
 
-   | 隔离级别             | 脏读   | 不可重复读 | 幻读   |
-   | ---------------- | ---- | ----- | ---- |
-   | Read uncommitted | √    | √     | √    |
-   | Read committed   | ×    | √     | √    |
-   | Repeatable read  | ×    | ×     | √    |
-   | Serializable     | ×    | ×     | ×    |
+   | 隔离级别 | 脏读 | 不可重复读 | 幻读 |
+   | --- | --- | --- | --- |
+   | Read uncommitted | √ | √ | √ |
+   | Read committed | × | √ | √ |
+   | Repeatable read | × | × | √ |
+   | Serializable | × | × | × |
 
-##### 1、Read uncommitted(读未提交)
+##### 1、Read uncommitted\(读未提交\)
 
 1. 举个栗子
 
@@ -317,7 +317,7 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
 
    ![](http://opzv089nq.bkt.clouddn.com/17-8-12/22982577.jpg)
 
-##### 2、Read committed (读提交,不可重复读)
+##### 2、Read committed \(读提交,不可重复读\)
 
 1. 举个栗子
 
@@ -347,7 +347,7 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
 
 2. 示例图
 
-   ​	![](http://opzv089nq.bkt.clouddn.com/17-8-12/40790591.jpg)
+   ​    ![](http://opzv089nq.bkt.clouddn.com/17-8-12/40790591.jpg)
 
 3. 备注
 
@@ -376,10 +376,10 @@ JDBC连接是在默认情况下会自动提交，也就是说每个SQL语句都�
 
 ### 3.4、如何设置事务的隔离级别?
 
-1. Connection.TRANSACTION_READ_UNCOMMITTED、
-2. Connection.TRANSACTION_READ_COMMITTED、
-3. Connection.TRANSACTION_REPEATABLE_READ
-4. Connection.TRANSACTION_SERIALIZABLE。
+1. Connection.TRANSACTION\_READ\_UNCOMMITTED、
+2. Connection.TRANSACTION\_READ\_COMMITTED、
+3. Connection.TRANSACTION\_REPEATABLE\_READ
+4. Connection.TRANSACTION\_SERIALIZABLE。
 
 ```
 try {
@@ -393,3 +393,6 @@ try {
 ```
 
 ### 3.5、示例代码
+
+
+
