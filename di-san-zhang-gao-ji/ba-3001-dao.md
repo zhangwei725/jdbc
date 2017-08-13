@@ -2,14 +2,14 @@
 
 ## 一、什么是DAO
 
-​	数据访问对象（Data Access Object）,是标准 J2EE 设计模式之一。开发人员用这种模式将底层数据访问操作与高层业务逻辑分离开。
+​    数据访问对象（Data Access Object）,是标准 J2EE 设计模式之一。开发人员用这种模式将底层数据访问操作与高层业务逻辑分离开。
 
 ## 二、四要素
 
 1. 一个 DAO 工厂类
 2. 一个 DAO 接口
 3. 一个实现了 DAO 接口的具体类
-4. 数据传输对象(有时称为值对象)
+4. 数据传输对象\(有时称为值对象\)
 
 ## 三、具体类
 
@@ -19,7 +19,7 @@
    用于声明对于数据库的操作
    ```
 
-2. VO(Value Object):
+2. VO\(Value Object\):
 
    ```
    于存放一行数据即一条记录的类
@@ -80,28 +80,28 @@
 
 ### 6.1、基础入门
 
-1. 建表语句()
+1. 建表语句\(\)
 
    ```MYSQL
    --Mysql
    CREATE  TABLE   MOBILE_TELEPHONE(
-   	MID INT(6)  AUTO_INCREMENT PRIMARY KEY, --主键自动增长
-   	BRAND VARCHAR(50) NOT NULL, --品牌
+       MID INT(6)  AUTO_INCREMENT PRIMARY KEY, --主键自动增长
+       BRAND VARCHAR(50) NOT NULL, --品牌
        MODEL VARCHAR(50) NOT NULL,--型号
-   	PRICE  DOUBLE(9,2) NOT NULL, --价格
-   	COUNT  INT NOT NULL,    --数量
-   	VERSION   VARCHAR(50) NOT NULL,--版本
-   	CONSTRAINT UK_MT_BRAND  UNIQUE(BRAND)
+       PRICE  DOUBLE(9,2) NOT NULL, --价格
+       COUNT  INT NOT NULL,    --数量
+       VERSION   VARCHAR(50) NOT NULL,--版本
+       CONSTRAINT UK_MT_BRAND  UNIQUE(BRAND)
    )
    -- oracle
    CREATE  TABLE   MOBILE_TELEPHONE(
-   	MID NUMBER(6)  PRIMARY KEY, --主键
-   	BRAND VARCHAR2(50) NOT NULL, 
+       MID NUMBER(6)  PRIMARY KEY, --主键
+       BRAND VARCHAR2(50) NOT NULL, 
        MODEL VARCHAR2(50) NOT NULL,
-   	PRICE  NUMBER(9,2) NOT NULL, 
-   	COUNT  NUMBER(8) NOT NULL,    
-   	VERSION   VARCHAR(50) NOT NULL,
-   	CONSTRAINT "UK_MT_BRAND" UNIQUE(BRAND)
+       PRICE  NUMBER(9,2) NOT NULL, 
+       COUNT  NUMBER(8) NOT NULL,    
+       VERSION   VARCHAR(50) NOT NULL,
+       CONSTRAINT "UK_MT_BRAND" UNIQUE(BRAND)
    )
    --索引 主键自动增长
    CREATE SEQUENCE SEQ_MT_MID  --序列名
@@ -156,8 +156,7 @@
            <property name="password">root</property>
            <property name="driverClass">com.mysql.jdbc.Driver</property>
        </named-config>
-    </c3p0-config> 
-       
+    </c3p0-config>
    ```
 
 3. DbManager
@@ -352,11 +351,11 @@
 
 ### 6.2、Dao封装
 
-(未经过严格测试,仅供学习使用,请不要用于实战开发(建议使用hibernate,mybatis框架))
+\(未经过严格测试,仅供学习使用,请不要用于实战开发\(建议使用hibernate,mybatis框架\)\)
 
-(未经过严格测试,仅供学习使用,请不要用于实战开发(建议使用hibernate,mybatis框架))
+\(未经过严格测试,仅供学习使用,请不要用于实战开发\(建议使用hibernate,mybatis框架\)\)
 
-(未经过严格测试,仅供学习使用,请不要用于实战开发(建议使用hibernate,mybatis框架))
+\(未经过严格测试,仅供学习使用,请不要用于实战开发\(建议使用hibernate,mybatis框架\)\)
 
 1. BaseDao
 
@@ -388,13 +387,13 @@
         * @return
         */
        public <T> List<T> queryList(String sql, Class<T> entity, Object... params);
-   	}
+       }
    }
    ```
 
 2. BaseDaoImpl
 
-   ```
+   ```java
    import com.werner.jdbc.dao.IBaseDao;
    import com.werner.jdbc.utils.DbManager;
 
@@ -419,7 +418,7 @@
            }
            return flag;
        }
-    
+
        @Override
        public <T> T query(String sql, Class<T> entity, Object... params) {
            return queryList(sql, entity, params).get(0);
@@ -535,9 +534,9 @@
           } finally {
               DbManager.getInstance().close(ps, conn);
           }
-        
+
       }
-      
+
       /**
        * 修改
        */
@@ -612,7 +611,7 @@
           conn.close();
 
       }
-      
+
        /**
        * 删除
        */
@@ -679,14 +678,14 @@
       private <T> String getString(Method method, T entity) throws Exception {
           return (String) method.invoke(entity, new Object[]{});
       }
-      
+
       /**
        * 方法返回类型为Date时,返回的SQL语句拼装值,对应get
        */
       private <T> Date getDate(Method method, T entity) throws Exception {
           return (Date) method.invoke(entity, new Object[]{});
       }
-      
+
        /**
        * 参数类型为Integer或int时,为entity字段设置参数,对应set
        */
@@ -707,19 +706,22 @@
       private  <T> Date setDate(Method method, T entity, Date arg) throws Exception {
           return (Date) method.invoke(entity, new Object[]{arg});
       }
-      
-   }   
+
+   }
    ```
 
 ## 七、其他
 
 ### 7.1、po与vo的区别
 
-1. PO (persistant object)持久对象
+1. PO \(persistant object\)持久对象
 
    ```
    持久对象,可以看成是与数据库中的表相映射的java对象。
    最简单的PO就是对应数据库中某个表中的一条记录，多个记录可以用PO的集合。PO中应该不包含任何对数据库的操作
    ```
 
-2. VO:(value object)值对象,(view object)视图对象
+2. VO:\(value object\)值对象,\(view object\)视图对象
+
+
+
