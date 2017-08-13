@@ -370,6 +370,7 @@
 
        /**
         * 查询单个对象
+        *
         * @param sql
         * @param entity
         * @param params
@@ -380,6 +381,7 @@
 
        /**
         * 查询多个对象
+        *
         * @param sql
         * @param entity
         * @param params
@@ -387,8 +389,31 @@
         * @return
         */
        public <T> List<T> queryList(String sql, Class<T> entity, Object... params);
-       }
+
+       /**
+        * 保存对象
+        * @param entity
+        * @param <T>
+        */
+       public <T> void save(T entity);
+
+       /**
+        * 通过主键更新对象
+        * @param entity
+        * @param <T>
+        * @throws Exception
+        */
+       public <T> void update(T entity) throws Exception;
+
+       /**
+        * 通过主键删除对象
+        * @param entity
+        * @param <T>
+        * @throws Exception
+        */
+       public <T> void delete(T entity) throws Exception;
    }
+
    ```
 
 2. BaseDaoImpl
