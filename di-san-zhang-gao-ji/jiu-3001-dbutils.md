@@ -19,27 +19,29 @@
 
 ### 3.1、DbUtils
 
-1. 说明
+#### 1、说明
 
-   ```
-   DbUtils是一个做关闭连接，装载JDBC驱动程序等工作的类，它里面所有的方法都是静态的
-   ```
+```
+DbUtils是一个做关闭连接，装载JDBC驱动程序等工作的类，它里面所有的方法都是静态的
+```
 
-2. 常用api
+#### 2、常用api
 
-   1、public static void close(…) throws java.sql.SQLException 
+1. public static void close(…) throws java.sql.SQLException 
 
    ```
    DbUtils类提供了三个重载的关闭方法。这些方法检查所提供的参数是不是NULL，如果不是的话，它们就关闭Connection、Statement和ResultSet。
    ```
 
-   2、public static void closeQuietly(…) 
+
+1. public static void closeQuietly(…) 
 
    ```
    这一类方法不仅能在Connection、Statement和ResultSet为NULL情况下避免关闭，还能隐藏一些在程序中抛出的SQLException。
    ```
 
-   3、public static void commitAndCloseQuietly(Connection conn) 
+
+1. public static void commitAndCloseQuietly(Connection conn) 
 
    ```
    用来提交连接，然后关闭连接，并且在关闭连接时不抛出SQL异常。
@@ -47,49 +49,49 @@
 
 ### 3.2、QueryRunner
 
-1. 说明
+#### 1、说明
 
 ```
 该类简单化了SQL查询，它与ResultSetHandler组合在一起使用可以完成大部分的数据库操作，能够大大减少编码量,可以设置查询结果集的封装策略，线程安全
 ```
 
-1. 构造方法
+#### 2、构造方法
 
-   1、QueryRunner()
+1. QueryRunner()
 
    ```
    创建一个与数据库无关的QueryRunner对象，后期再操作数据库的会后，需要手动给一个Connection对象，它可以手动控制事务
    ```
 
-   2、QueryRunner(DataSource ds)
+2. QueryRunner(DataSource ds)
 
    ```
    创建一个与数据库关联的queryRunner对象，后期再操作数据库的时候，不需要Connection对象，自动管理事务。
    DataSource：数据库连接池对象
    ```
 
-2. 常用API
+#### 3、常用API
 
-   |  回值   | 方法名                                      | 说明                       |
-   | :---: | ---------------------------------------- | ------------------------ |
-   | int[] | batch(Connection conn, String sql, Object[][] params) | 批量执行INSERT、UPDATE或DELETE |
-   | int[] | batch(String sql, Object[][] params)     | 批量执行INSERT、UPDATE或DELETE |
-   |   T   | insert(Connection conn, String sql, ResultSetHandler rsh) | 执行一个插入查询语句               |
-   |   T   | insert(Connection conn, String sql, ResultSetHandler rsh, Object… params) | 执行一个插入查询语句               |
-   |   T   | insert(String sql, ResultSetHandler rsh) | 执行一个插入查询语句               |
-   |   T   | insert(String sql, ResultSetHandler rsh, Object… params) | 执行一个插入查询语句               |
-   |   T   | insertBatch(Connection conn, String sql, ResultSetHandler rsh, Object[][] params) | 批量执行插入语句                 |
-   |   T   | insertBatch(String sql, ResultSetHandler rsh, Object[][] params) | 批量执行插入语句                 |
-   |   T   | query(Connection conn, String sql, ResultSetHandler rsh) | 查询                       |
-   |   T   | query(Connection conn, String sql, ResultSetHandler rsh, Object… params) | 查询                       |
-   |   T   | query(String sql, ResultSetHandler rsh)  | 查询                       |
-   |   T   | query(String sql, ResultSetHandler rsh, Object… params) | 查询                       |
-   |  int  | update(Connection conn, String sql)      | 执行INSERT、UPDATE或DELETE   |
-   |  int  | update(Connection conn, String sql, Object… params) | 执行INSERT、UPDATE或DELETE   |
-   |  int  | update(Connection conn, String sql, Object param) | 执行INSERT、UPDATE或DELETE   |
-   |  int  | update(String sql)                       | 执行INSERT、UPDATE或DELETE   |
-   |  int  | update(String sql, Object… params)       | 执行INSERT、UPDATE或DELETE   |
-   |  int  | update(String sql, Object param)         | 执行INSERT、UPDATE或DELETE   |
+|  回值   | 方法名                                      | 说明                       |
+| :---: | ---------------------------------------- | ------------------------ |
+| int[] | batch(Connection conn, String sql, Object[][] params) | 批量执行INSERT、UPDATE或DELETE |
+| int[] | batch(String sql, Object[][] params)     | 批量执行INSERT、UPDATE或DELETE |
+|   T   | insert(Connection conn, String sql, ResultSetHandler rsh) | 执行一个插入查询语句               |
+|   T   | insert(Connection conn, String sql, ResultSetHandler rsh, Object… params) | 执行一个插入查询语句               |
+|   T   | insert(String sql, ResultSetHandler rsh) | 执行一个插入查询语句               |
+|   T   | insert(String sql, ResultSetHandler rsh, Object… params) | 执行一个插入查询语句               |
+|   T   | insertBatch(Connection conn, String sql, ResultSetHandler rsh, Object[][] params) | 批量执行插入语句                 |
+|   T   | insertBatch(String sql, ResultSetHandler rsh, Object[][] params) | 批量执行插入语句                 |
+|   T   | query(Connection conn, String sql, ResultSetHandler rsh) | 查询                       |
+|   T   | query(Connection conn, String sql, ResultSetHandler rsh, Object… params) | 查询                       |
+|   T   | query(String sql, ResultSetHandler rsh)  | 查询                       |
+|   T   | query(String sql, ResultSetHandler rsh, Object… params) | 查询                       |
+|  int  | update(Connection conn, String sql)      | 执行INSERT、UPDATE或DELETE   |
+|  int  | update(Connection conn, String sql, Object… params) | 执行INSERT、UPDATE或DELETE   |
+|  int  | update(Connection conn, String sql, Object param) | 执行INSERT、UPDATE或DELETE   |
+|  int  | update(String sql)                       | 执行INSERT、UPDATE或DELETE   |
+|  int  | update(String sql, Object… params)       | 执行INSERT、UPDATE或DELETE   |
+|  int  | update(String sql, Object param)         | 执行INSERT、UPDATE或DELETE   |
 
 ### 3.3、ResultSetHandle
 
