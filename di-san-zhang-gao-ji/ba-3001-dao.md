@@ -359,7 +359,7 @@
 
 1. BaseDao
 
-   ```java
+   ```
    public interface IBaseDao {
        /**
         * 封装增删改的操作
