@@ -197,7 +197,7 @@ Statement statement = connection.createStatement();
 4.1、执行更新返回的是本次操作影响到的记录数。
 
 ```
-int count = statement.executeUpdate\(sql\);
+int count = statement.executeUpdate(sql);
 ```
 
 4.2、执行查询返回的结果是一个ResultSet对象。
