@@ -98,6 +98,12 @@ Connection connection = DriverManager
    子名称 即数据源的名称,是表示数据库的方法,为定位数据库提供确定的信息,每个子协议都自己的特有结构
    ```
 
+2. 示意图
+
+   ![](http://opzv089nq.bkt.clouddn.com/17-8-13/27910228.jpg)
+
+   ![](http://opzv089nq.bkt.clouddn.com/17-8-13/89699248.jpg)
+
 #### 2.3、常用数据库URL
 
 1. mysql
@@ -197,6 +203,7 @@ int count = statement.executeUpdate\(sql\);
 4.2、执行查询返回的结果是一个ResultSet对象。
 
 1. ResultSet包含符合SQL语句中条件的所有行，并且它通过一套get方法提供了对这些行中数据的访问。  
+
 2. 使用结果集（ResultSet）对象的访问方法获取数据
 
    ```
@@ -250,14 +257,14 @@ int count = statement.executeUpdate\(sql\);
 
 ### 7、常用的对应的数据类型
 
-| mysql | oracle | java |
-| :--- | --- | --- |
-| TIMESTAMP | Timestamp | java.sql.Timestamp |
-| VARCHAR | VARCHAR2 CLOB | java.lang.String |
-| TEXT | VARCHAR2 CLOB | java.lang.String |
-| INT | NUMBER\(10,0\) | java.lang.Integer |
-| date\(年月日\) |  | java.sql.Date |
-|  | date | java.sql.Date |
+| mysql       | oracle         | java               |
+| :---------- | -------------- | ------------------ |
+| TIMESTAMP   | Timestamp      | java.sql.Timestamp |
+| VARCHAR     | VARCHAR2 CLOB  | java.lang.String   |
+| TEXT        | VARCHAR2 CLOB  | java.lang.String   |
+| INT         | NUMBER\(10,0\) | java.lang.Integer  |
+| date\(年月日\) |                | java.sql.Date      |
+|             | date           | java.sql.Date      |
 
 
 
