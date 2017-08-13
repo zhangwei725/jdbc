@@ -413,7 +413,6 @@
         */
        public <T> void delete(T entity) throws Exception;
    }
-
    ```
 
 2. BaseDaoImpl
