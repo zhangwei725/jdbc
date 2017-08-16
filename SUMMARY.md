@@ -13,5 +13,5 @@
   * [七、事务机制](di-san-zhang-gao-ji/qi-3001-shi-wu-ji-zhi.md)
   * [八、DAO](di-san-zhang-gao-ji/ba-3001-dao.md)
   * [九、DbUtils](di-san-zhang-gao-ji/jiu-3001-dbutils.md)
-  * 十建议
+  * 十、建议
 
